@@ -1,5 +1,9 @@
 import 'package:cventix_login_ui/my_login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'blocs/bloc/categories_bloc.dart';
+import 'categories_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,7 +27,14 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: MyLoginPage(),
+      routes: {
+        "/": (context) {
+          return BlocProvider<CategoriesBloc>(
+            create: (context) => CategoriesBloc()..add(TopCategoriesEvent()),
+            child: CategoriesPage(),
+          );
+        }
+      },
     );
   }
 }
