@@ -8,6 +8,8 @@ abstract class CategoriesState extends Equatable {
 
 class CategoriesInitial extends CategoriesState {}
 
+class SelectedCategorieLoaded extends CategoriesState {}
+
 class CategoriesLoaded extends CategoriesState {
   final List<CategoriesItem> catItems;
   final List<CategoryItem> selectedCatItems;

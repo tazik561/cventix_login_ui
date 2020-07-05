@@ -140,7 +140,9 @@ Widget topCatList(bloc) {
             ),
           ),
           selectedCatItems == null
-              ? Container()
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
               : detailsCatList(selectedCatItems),
         ],
       );

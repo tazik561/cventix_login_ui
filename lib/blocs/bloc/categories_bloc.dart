@@ -61,6 +61,36 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
         protein: "2.1 g",
         title: "Rice",
         image: "assets/images/img4.jpeg"),
+    CategoryItem(
+        id: 1,
+        catId: 3,
+        delicious: "5",
+        fat: "2.5g",
+        fiber: "5.2g",
+        kcal: "180 kcal",
+        protein: "2.1 g",
+        title: "Slow Tony",
+        image: "assets/images/img1.jpeg"),
+    CategoryItem(
+        id: 1,
+        catId: 4,
+        delicious: "5",
+        fat: "2.5g",
+        fiber: "5.2g",
+        kcal: "180 kcal",
+        protein: "2.1 g",
+        title: "Slow Tony",
+        image: "assets/images/img1.jpeg"),
+    CategoryItem(
+        id: 4,
+        catId: 4,
+        delicious: "5",
+        fat: "2.5g",
+        fiber: "5.2g",
+        kcal: "180 kcal",
+        protein: "2.1 g",
+        title: "Rice",
+        image: "assets/images/img4.jpeg"),
   ];
 
   List<CategoryItem> get catItems => _infoCatItems;
@@ -72,25 +102,27 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     CategoriesEvent event,
   ) async* {
     if (event is TopCategoriesEvent) {
+      _makeFalseAllCategory();
       yield* _makeCatList(items);
     }
     if (event is SelectedCategoryEvent) {
       yield* _makeSelectedCatList(event.id, items, _infoCatItems);
     }
     if (event is TriggeredItemEvent) {
-      var tapedItem = items.firstWhere((element) => element.selected == true,
-          orElse: () => null);
-      tapedItem?.selected = false;
-
-      var id = event.id;
-      int itemIndex = items.indexWhere((element) => element.id == id);
-      items[itemIndex].selected = true;
+      _makeFalseAllCategory();
+      _selectedCategory(event.id);
       yield* _makeSelectedCatList(event.id, items, _infoCatItems);
     }
   }
 
   Stream<CategoriesState> _makeCatList(List<CategoriesItem> items) async* {
+    List<CategoryItem> cats;
     yield CategoriesLoaded(catItems: items, selectedCatItems: null);
+    await Future.delayed(Duration(seconds: 5), () {
+      cats = _getCategoryItem(items[1].id);
+    });
+
+    yield CategoriesLoaded(catItems: items, selectedCatItems: cats);
   }
 
   Stream<CategoriesState> _makeSelectedCatList(int id,
@@ -98,6 +130,23 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     var selectedList =
         selectedItem.where((element) => element.catId == id).toList();
     yield CategoriesLoaded(catItems: items, selectedCatItems: selectedList);
+  }
+
+  _makeFalseAllCategory() {
+    var tapedItem = items.firstWhere((element) => element.selected == true,
+        orElse: () => null);
+    tapedItem?.selected = false;
+  }
+
+  _selectedCategory(int catId) {
+    var id = catId;
+    int itemIndex = items.indexWhere((element) => element.id == id);
+    items[itemIndex].selected = true;
+  }
+
+  _getCategoryItem(int id) {
+    _selectedCategory(id);
+    return catItems.where((element) => element.catId == id).toList();
   }
 }
 

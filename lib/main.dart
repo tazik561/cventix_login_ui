@@ -5,7 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/bloc/categories_bloc.dart';
 import 'categories_page.dart';
 
+class SimpleBlocDelegate extends BlocObserver {
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    super.onTransition(bloc, transition);
+    print(transition);
+  }
+}
+
 void main() {
+  Bloc.observer = SimpleBlocDelegate();
   runApp(MyApp());
 }
 
