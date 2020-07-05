@@ -105,9 +105,6 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
       _makeFalseAllCategory();
       yield* _makeCatList(items);
     }
-    if (event is SelectedCategoryEvent) {
-      yield* _makeSelectedCatList(event.id, items, _infoCatItems);
-    }
     if (event is TriggeredItemEvent) {
       _makeFalseAllCategory();
       _selectedCategory(event.id);

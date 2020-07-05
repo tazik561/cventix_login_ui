@@ -104,7 +104,6 @@ Widget topCatList(bloc) {
                     InkWell(
                       onTap: () {
                         bloc.add(TriggeredItemEvent(catItems[index].id));
-                        // bloc.add(SelectedCategoryEvent(catItems[index].id));
                       },
                       child: Container(
                         width: 100,
@@ -157,6 +156,7 @@ Widget detailsCatList(List<CategoryItem> selectedCatItems) {
       itemCount: selectedCatItems == null ? 0 : selectedCatItems.length,
       itemBuilder: (context, index) {
         return Container(
+          color: Colors.amber,
           margin: EdgeInsets.all(10.0),
           child: Row(
             children: <Widget>[
@@ -173,6 +173,86 @@ Widget detailsCatList(List<CategoryItem> selectedCatItems) {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(selectedCatItems[index].title),
+                    SizedBox(
+                      height: 8.0,
+                    ),
+                    IntrinsicHeight(
+                      child: Container(
+                        width: double.maxFinite,
+                        color: Colors.blue,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
+                          // crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.ac_unit,
+                                    size: 16,
+                                  ),
+                                  Text(selectedCatItems[index].delicious),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.ac_unit,
+                                    size: 16,
+                                  ),
+                                  Text(selectedCatItems[index].fat),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.ac_unit,
+                                    size: 16,
+                                  ),
+                                  Text(selectedCatItems[index].fiber),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.ac_unit,
+                                    size: 16,
+                                  ),
+                                  Text(selectedCatItems[index].kcal),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.ac_unit,
+                                    size: 16,
+                                  ),
+                                  Text(selectedCatItems[index].protein),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         );
